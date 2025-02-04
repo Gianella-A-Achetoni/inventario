@@ -1,4 +1,4 @@
-import "./Reportes.css";
+import "./reportes.css";
 import { FaInfoCircle, FaDownload } from "react-icons/fa";
 
 const Reportes = () => {
