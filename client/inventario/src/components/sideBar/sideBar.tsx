@@ -65,7 +65,7 @@ const SideBar: React.FC<SideBarProps> = ({ closeSidebar, setIsSidebarOpen }) => 
         onClick={() =>{
           const logout = useAuthStore.getState().logout
           logout()
-          window.location.href = '../../ingreso/login'
+          window.location.href = '../../'
         }}
         >
           Cerrar Sesión
