@@ -1,0 +1,42 @@
+/* eslint-disable */
+/* tailwindcss@directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #F5EFE7;
+}
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+::-webkit-scrollbar{
+    width: 12px;
+}
+
+::-webkit-scrollbar-track{
+    background: rgba(245, 239, 231, 0);
+}
+
+/* Estilo del thumb (la parte que se mueve) */
+::-webkit-scrollbar-thumb {
+    background: rgb(216, 196, 182); /* Color del thumb */
+    border-radius: 6px; /* Bordes redondeados */
+    transition: box-shadow 0.3s, background-color 0.3s; /* Transiciones suaves */
+}
+
+/* Estilo del thumb al pasar el mouse */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(216, 196, 182); /* Color del thumb en hover */
+    box-shadow: 0 0 10px rgb(216, 196, 182), 0 0 20px rgb(216, 196, 182); /* Efecto neón */
+  }
+  
+  /* Para otros navegadores (Firefox) */
+  body {
+    scrollbar-width: thin; /* Ancho reducido */
+    scrollbar-color: rgb(216, 196, 182) #f5f5f5; /* thumb y track */
+  }

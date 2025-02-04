@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+.perfil-box-info {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(33, 53, 85, 0.2);
+    text-align: center;
+}
+
+.perfil-title h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: rgba(33, 53, 85, 1);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.perfil-edit-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.perfil-edit-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.perfil-edit-image button {
+    width: 80%;
+    max-width: 200px;
+    height: 40px;
+    background: rgba(33, 53, 85, 1);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.perfil-box-info {
+    width: 100%;
+    max-width: 1156px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.perfil-edit-info {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+
+.perfil-edit-info-inputs-1,
+.perfil-edit-info-inputs-2 {
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem;
+    padding: 0.5rem;
+    width: 100%;
+    max-width: 600px;
+    color: rgba(33, 53, 85, 1);
+}
+
+.perfil-edit-info-inputs-1 label,
+.perfil-edit-info-inputs-2 label {
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.perfil-edit-info-inputs-1 input,
+.perfil-edit-info-inputs-2 input {
+    border-radius: 10px;
+    border: 1px solid #cacaca;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.perfil-edit-info-button-update {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+}
+
+.perfil-edit-info-button-update button {
+    width: 80%;
+    max-width: 230px;
+    height: 40px;
+    background: rgba(33, 53, 85, 1);
+    color: #ffffff;
+    font-weight: 600;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .perfil-title h4 {
+        font-size: 1.5rem;
+    }
+
+    .perfil-edit-image img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .perfil-edit-info {
+        flex-direction: column;
+    }
+
+    .perfil-edit-info-inputs-1,
+    .perfil-edit-info-inputs-2 {
+        max-width: 100%;
+    }
+
+    .perfil-edit-info-button-update button {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .perfil-title h4 {
+        font-size: 1.2rem;
+    }
+
+    .perfil-edit-image button {
+        font-size: 0.9rem;
+        height: 35px;
+    }
+
+    .perfil-edit-info-inputs-1 input,
+    .perfil-edit-info-inputs-2 input {
+        font-size: 0.9rem;
+        padding: 0.4rem;
+    }
+}

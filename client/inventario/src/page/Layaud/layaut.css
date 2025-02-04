@@ -1,0 +1,18 @@
+@media (max-width: 768px) {
+  
+    .navbar {
+      left: 0; /* Asegúrate de que la barra de navegación esté alineada a la izquierda */
+      width: 100%; /* La barra de navegación ocupa todo el ancho */
+    }
+
+    .main-container {
+        margin-left: 0; /* Elimina el margen izquierdo en pantallas pequeñas */
+        padding-left: 0; /* Elimina el padding izquierdo en pantallas pequeñas */
+        width: 100%;
+    }
+
+    main {
+        padding-left: 0; /* Asegúrate de que el main no tenga padding izquierdo */
+        width: 100%;
+    }
+}

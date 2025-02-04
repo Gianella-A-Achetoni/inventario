@@ -1,0 +1,6 @@
+@media (max-width: 640px) {
+  .overflow-x-auto {
+    overflow-x: auto; /* Activa el desplazamiento horizontal en móviles */
+    -webkit-overflow-scrolling: touch; /* Agrega un suavizado en el desplazamiento */
+  }
+}

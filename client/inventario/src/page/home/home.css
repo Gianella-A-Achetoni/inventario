@@ -1,0 +1,9 @@
+/* Para mejorar el scroll del carrusel en móvil */
+.md\:hidden::-webkit-scrollbar {
+    height: 4px;
+}
+
+.md\:hidden::-webkit-scrollbar-thumb {
+    background-color: #cbd5e0;
+    border-radius: 2px;
+}
