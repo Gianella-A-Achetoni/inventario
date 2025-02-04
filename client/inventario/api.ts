@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/api/v1"; 
+const API_URL = "https://stockly-backend.vercel.app/api/v1"; 
 
 export const loginUser = async (email: string, password: string) => {
     try {

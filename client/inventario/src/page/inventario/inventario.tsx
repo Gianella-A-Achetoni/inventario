@@ -12,9 +12,10 @@ interface Producto {
    name: string;
    price: number;
    stock: number;
-   image: string;
+   minimum_stock: number;
+   status: string;
+   img: string
 }
-
 
 function Inventario() {
 
@@ -24,7 +25,7 @@ const [busqueda, setBusqueda] = useState("");
    const [editproduct, setEditproduct] = useState(false);
    const [agregarImagen, setAgregarImagen] = useState(false);
    const [editarimagen, setEditarimagen] = useState(false);
-   const [filtrarpor, setFiltrarpor] = useState<'Nombre' | 'Status' | 'Cantidad' | 'Valor'>('');
+   const [filtrarpor, setFiltrarpor] = useState<'Nombre' | 'Status' | 'Cantidad' | 'Valor'> ();
    const [productosusuario, setProductosusuario] = useState<Producto[]>([]);
   
 
@@ -36,7 +37,7 @@ const [busqueda, setBusqueda] = useState("");
       stock: 0,
       minimum_stock:0,
       status:"",
-      image: '',
+      img: '',
   
    });
 
@@ -46,14 +47,15 @@ const [busqueda, setBusqueda] = useState("");
       stock: 0,
       minimum_stock:0,
       status:"DISPONIBLE",
-      image: null as File | null, 
+      img: null as File | null, 
    });
 
-   const { user } = useAuthStore<User>();
+   const { user } = useAuthStore();
 
 
 
    const productosFiltrados = productosusuario.filter((producto) => {
+      const cantidadBusqueda = parseInt(busqueda);
       if (!filtrarpor) return true; // Si no hay filtro, mostrar todo
    
       switch (filtrarpor) {
@@ -62,7 +64,7 @@ const [busqueda, setBusqueda] = useState("");
          case "Status":
             return (producto.stock === 0 ? "AGOTADO" : producto.stock <= 25 ? "POR AGOTARSE" : "DISPONIBLE").toLowerCase().includes(busqueda);
          case "Cantidad":
-            const cantidadBusqueda = parseInt(busqueda);
+          
            
             return producto.stock === cantidadBusqueda;
          case "Valor":
@@ -77,7 +79,7 @@ const [busqueda, setBusqueda] = useState("");
 
    const obtenerProductos = async () => {
       try {
-         const responseProductos = await axios.get(`http://localhost:3000/api/v1/product/userProducts/${user?.id}`);
+         const responseProductos = await axios.get(`https://stockly-backend.vercel.app/api/v1/product/userProducts/${user?.id}`);
          setProductosusuario(responseProductos.data);
          console.log(responseProductos); 
 
@@ -97,11 +99,11 @@ const [busqueda, setBusqueda] = useState("");
          formData.append("status", productoNuevo.status); // <--- Agregado
          formData.append("idUser", user?.id.toString() || "");
    
-         if (productoNuevo.image) {
-            formData.append("img", productoNuevo.image);
+         if (productoNuevo.img) {
+            formData.append("img", productoNuevo.img);
          }
    
-         const response = await axios.post("http://localhost:3000/api/v1/product", formData, {
+           await axios.post("https://stockly-backend.vercel.app/api/v1/product", formData, {
             headers: {
                "Content-Type": "multipart/form-data",
             },
@@ -115,7 +117,7 @@ const [busqueda, setBusqueda] = useState("");
             status: "DISPONIBLE", // Valor predeterminado
             price: 0, 
             stock: 0, 
-            image: null 
+            img: null 
          });
          obtenerProductos();
       } catch (error) {
@@ -129,7 +131,7 @@ const [busqueda, setBusqueda] = useState("");
 
    const eliminarProducto = async (id: string): Promise<void> => {
       try {
-         await axios.delete(`http://localhost:3000/api/v1/product/${id}`);
+         await axios.delete(`https://stockly-backend.vercel.app/api/v1/product/${id}`);
       
       
          toast.success("Producto Eliminado con exito");
@@ -141,7 +143,7 @@ const [busqueda, setBusqueda] = useState("");
 
    const editarProducto = async (): Promise<void> => {
       try {
-         await axios.put(`http://localhost:3000/api/v1/product/${productoEditar.id}`, productoEditar);
+         await axios.put(`https://stockly-backend.vercel.app/v1/product/${productoEditar.id}`, productoEditar);
          toast.success("Producto editado con exito");
          setEditproduct(false);
          obtenerProductos();
@@ -171,8 +173,8 @@ const [busqueda, setBusqueda] = useState("");
 
             <input value={busqueda} onChange={(e) => setBusqueda(e.target.value.toLowerCase())} placeholder="Buscar producto " type="text" />
 
-            <select onChange={(e) => setFiltrarpor(e.target.value as any)}>
-  
+            <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFiltrarpor(e.target.value as 'Nombre' | 'Status' | 'Cantidad' | 'Valor')}>
+               <option value="">Filtrar por</option>
    <option value="Nombre">Nombre</option>
    <option value="Status">Status</option>
    <option value="Cantidad">Cantidad</option>
@@ -280,7 +282,7 @@ const [busqueda, setBusqueda] = useState("");
                               accept="image/*"
                               onChange={(e) => {
                                  if (e.target.files) {
-                                    setProductoNuevo({ ...productoNuevo, image: e.target.files[0] });
+                                    setProductoNuevo({ ...productoNuevo, img: e.target.files[0] });
                                  }
                               }}
                            />
@@ -341,8 +343,8 @@ const [busqueda, setBusqueda] = useState("");
                            <label>Imagen del producto</label>
                            <input
                               type="url"
-                              value={productoEditar.image || ""}
-                              onChange={(e) => setProductoEditar({ ...productoEditar, image: e.target.value })}
+                              value={productoEditar.img || ""}
+                              onChange={(e) => setProductoEditar({ ...productoEditar, img: e.target.value })}
                            />
                         </>
                      )}
@@ -355,7 +357,7 @@ const [busqueda, setBusqueda] = useState("");
                      <input
                         type="number"
                         value={productoEditar.price || ""}
-                        onChange={(e) => setProductoEditar({ ...productoEditar, price: e.target.value })}
+                        onChange={(e) => setProductoEditar({ ...productoEditar, price: parseFloat(e.target.value) })}
                      />
                   </div>
                   <div className="inventario-editar-producto-input">
@@ -363,7 +365,7 @@ const [busqueda, setBusqueda] = useState("");
                      <input
                         type="number"
                         value={productoEditar.stock || ""}
-                        onChange={(e) => setProductoEditar({ ...productoEditar, stock: e.target.value })}
+                        onChange={(e) => setProductoEditar({ ...productoEditar, stock: parseFloat(e.target.value) })}
                      />
                   </div>
                   <div className="inventario-editar-producto-button-edit">
