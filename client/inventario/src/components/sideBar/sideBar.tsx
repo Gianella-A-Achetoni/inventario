@@ -1,9 +1,9 @@
-import { HomeIcon, CubeIcon, TruckIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline';
+import { HomeIcon, CubeIcon, TruckIcon, ExclamationTriangleIcon, ArrowLeftOnRectangleIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 import { useAuthStore } from '../../../store/useAuth';
 
 interface SideBarProps {
-  closeSidebar: () => void; 
+  closeSidebar: () => void;
   setIsSidebarOpen: (state: boolean) => void; // Recibe setIsSidebarOpen como prop
 }
 
@@ -11,6 +11,12 @@ const SideBar: React.FC<SideBarProps> = ({ closeSidebar, setIsSidebarOpen }) => 
   const handleLinkClick = () => {
     closeSidebar(); // Llama a closeSidebar para cerrarlo
     setIsSidebarOpen(false); // Asegura que el estado en el Layout se actualice
+  };
+
+  const handleLogout = () => {
+    const logout = useAuthStore.getState().logout;
+    logout();
+    window.location.href = '../';
   };
 
   return (
@@ -44,7 +50,7 @@ const SideBar: React.FC<SideBarProps> = ({ closeSidebar, setIsSidebarOpen }) => 
             onClick={handleLinkClick}
           >
             <TruckIcon className="w-6 h-6 mr-3" />
-            PROVEDORES
+            PROVEEDORES
           </Link>
         </li>
         <li>
@@ -59,24 +65,21 @@ const SideBar: React.FC<SideBarProps> = ({ closeSidebar, setIsSidebarOpen }) => 
         </li>
       </ul>
 
-      <div>
-        <button
-        className=''
-        onClick={() =>{
-          const logout = useAuthStore.getState().logout
-          logout()
-          window.location.href = '../'
-        }}
-        >
-          Cerrar Sesión
-        </button>
-      </div>
+      {/* Botón de Cerrar Sesión con mismo estilo */}
+      <button
+        className="flex items-center py-2 px-4 hover:bg-bluelith rounded text-left w-full"
+        onClick={handleLogout}
+      >
+        <ArrowLeftOnRectangleIcon className="w-6 h-6 mr-3" />
+        CERRAR SESIÓN
+      </button>
 
       <footer className="mt-auto text-sm text-center bg-gradient-to-b from-transparent py-4 border-t border-beigeclaro">
-        <p className=''>&copy;equipo s20-21 2025</p>
+        <p>&copy; equipo s20-21 2025</p>
       </footer>
     </div>
   );
 };
 
 export default SideBar;
+

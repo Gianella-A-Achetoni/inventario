@@ -5,7 +5,8 @@ import { BiCamera } from "react-icons/bi";
 import axios from "axios";
 import { useAuthStore } from "../../../store/useAuth";
 import { Toaster, toast } from "sonner";
-
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 interface Producto {
    id: string;
@@ -18,6 +19,21 @@ interface Producto {
 }
 
 function Inventario() {
+
+// Función para exportar a PDF
+const exportarPDF = () => {
+   const tabla = document.getElementById("tabla-inventario"); // Seleccionar solo la tabla
+   if (tabla) {
+      html2canvas(tabla).then((canvas) => {
+         const imgData = canvas.toDataURL("image/png");
+         const pdf = new jsPDF("p", "mm", "a4");
+         const imgWidth = 190;
+         const imgHeight = (canvas.height * imgWidth) / canvas.width;
+         pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
+         pdf.save("Inventario.pdf");
+      });
+   }
+};
 
 
 const [busqueda, setBusqueda] = useState("");
@@ -175,14 +191,11 @@ const [busqueda, setBusqueda] = useState("");
 
             <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => setFiltrarpor(e.target.value as 'Nombre' | 'Status' | 'Cantidad' | 'Valor')}>
                <option value="">Filtrar por</option>
-   <option value="Nombre">Nombre</option>
-   <option value="Status">Status</option>
-   <option value="Cantidad">Cantidad</option>
-   <option value="Valor">Valor</option>
-</select>
-
-
-
+               <option value="Nombre">Nombre</option>
+               <option value="Status">Status</option>
+               <option value="Cantidad">Cantidad</option>
+               <option value="Valor">Valor</option>
+            </select>
             <div className="inventario-filter-status">
                {filtrarpor === "Status" ? (<>
 
@@ -191,16 +204,15 @@ const [busqueda, setBusqueda] = useState("");
               <button onClick={() => setBusqueda('agotado')}>Agotado</button>
                </>) : <></>}
 
-
             </div>
          </div>
          <div className="inventario-download">
 
-            <button>Descargar PDF <i><BsDownload /> </i></button>
+            <button onClick={exportarPDF}>Descargar PDF <i><BsDownload /> </i></button>
 
          </div>
 
-         <table className="inventario-table">
+         <table id="tabla-inventario" className="inventario-table">
             <thead>
                <tr>
                   <th>Imagen</th>
