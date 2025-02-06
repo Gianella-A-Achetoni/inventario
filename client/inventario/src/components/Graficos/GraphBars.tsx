@@ -26,8 +26,8 @@ const GraphBars = () => {
     }, []);
 
     // Datos de los productos
-    const labels = ["Producto A", "Producto B", "Producto C", "Producto D", "Producto E"];
-    const dataValues = [120, 190, 300, 50, 200];
+    const labels = ["Palito bombon helado", "Paleta de agua sabor naranja", "Freddo helado due", "Not Icecream menta", "Tentacion"];
+    const dataValues = [100, 80, 65, 35, 30];
 
     const datos = {
         labels: labels,
@@ -51,7 +51,7 @@ const GraphBars = () => {
             },
             title: {
                 display: true,
-                text: "Productos más vendidos",
+                text: "Productos con mas stock",
             },
         },
     };
