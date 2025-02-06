@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import GraphBars from "../../components/Graficos/GraphBars";
 import Tablas from "../../components/tablas/tablas";
+import { useAuthStore } from "../../../store/useAuth";
 
 interface Producto {
   imagen: string;
@@ -10,13 +11,16 @@ interface Producto {
   status: string;
 }
 
+
+
 const Home: React.FC = () => {
   const [productos, setProductos] = useState<Producto[]>([]);
+  const { user } = useAuthStore();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("URL_DE_TU_API"); // Reemplaza con tu API
+        const response = await fetch(`https://stockly-backend.vercel.app/api/v1/product/userProducts/${user?.id}`); // Reemplaza con tu API
         const data: unknown = await response.json();
 
         if (!Array.isArray(data)) {
