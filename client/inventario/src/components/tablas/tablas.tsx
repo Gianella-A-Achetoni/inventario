@@ -1,5 +1,3 @@
-import "./tabla.css"
-
 interface Column {
   key: string;
   label: string;
@@ -14,16 +12,13 @@ const Tablas: React.FC<TablasProps> = ({ columns, data }) => {
   return (
     <div className="w-full h-full overflow-hidden rounded-lg shadow-md border border-gray-300">
       <div className="w-full overflow-x-auto">
-        <table className="w-full border-collapse bg-white text">
-          {/* Encabezado Fijo */}
+        {/* Tabla Principal */}
+        <table className="w-full border-collapse bg-white">
+          {/* Encabezado */}
           <thead className="bg-customBlue text-white uppercase text-sm">
             <tr>
               {columns.map((col) => (
-                <th
-                  key={col.key}
-                  className="px-6 py-3 text-center border-b border-gray-300"
-                  style={{ minWidth: "150px" }} 
-                >
+                <th key={col.key} className="px-6 py-3 text-center border-b border-gray-300 min-w-[150px]">
                   {col.label}
                 </th>
               ))}
@@ -31,24 +26,18 @@ const Tablas: React.FC<TablasProps> = ({ columns, data }) => {
           </thead>
         </table>
 
-        {/* Cuerpo con Scroll Vertical */}
-        <div className=" max-h-[300px] overflow-y-auto text-center">
-          <table className="w-full border-collapse bg-white ">
+        {/* Contenedor para el scroll vertical */}
+        <div className="max-h-[300px] overflow-y-auto text-center">
+          <table className="w-full border-collapse bg-white">
             <tbody>
               {data.length > 0 ? (
                 data.map((row, rowIndex) => (
                   <tr
                     key={rowIndex}
-                    className={`border-b border-gray-200 ${
-                      rowIndex % 2 === 0 ? "bg-gray-50" : "bg-beigeclaro"
-                    }`}
+                    className={`border-b border-gray-200 ${rowIndex % 2 === 0 ? "bg-gray-50" : "bg-beigeclaro"}`}
                   >
                     {columns.map((col) => (
-                      <td
-                        key={`${rowIndex}-${col.key}`}
-                        className="px-6 py-3 border-r"
-                        style={{ minWidth: "150px" }}
-                      >
+                      <td key={`${rowIndex}-${col.key}`} className="px-6 py-3 border-r min-w-[150px]">
                         {String(row[col.key])}
                       </td>
                     ))}
