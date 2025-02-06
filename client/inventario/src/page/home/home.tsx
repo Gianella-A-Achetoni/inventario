@@ -29,9 +29,9 @@ const Home: React.FC = () => {
         }
 
         const productosFormateados: Producto[] = data.map((item) => ({
-          imagen: item.imagen || "",
+          imagen: item.imag || "",
           producto: item.name || "Sin nombre",
-          valor: item.precio || 0,
+          valor: item.price || 0,
           cantidad: item.stock || 0,
           status: item.status || "Desconocido",
         }));
